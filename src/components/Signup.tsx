@@ -34,7 +34,7 @@ export const SignIn=()=> {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      empid: data.get('empid'),
       password: data.get('password'),
     });
   };
@@ -55,17 +55,17 @@ export const SignIn=()=> {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Employee Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="empid"
+              label="Employee id"
+              name="empid"
+              autoComplete="empid"
               autoFocus
             />
             <TextField
