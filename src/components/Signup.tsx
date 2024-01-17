@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
+import { useState, } from 'react';
 
 function Copyright(props: any) {
   return (
@@ -30,6 +32,16 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export const SignIn=()=> {
+  const [empId, setEmpId] = useState('');
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    if (empId.trim() !== '' && empId.length >= 4) {
+      navigate(`/dashboard`);
+    } else {
+      alert('User ID not correct.');
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -63,10 +75,12 @@ export const SignIn=()=> {
               required
               fullWidth
               id="empid"
+              value={empId}
               label="Employee id"
               name="empid"
               autoComplete="empid"
               autoFocus
+              onChange={(e)=>setEmpId(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -87,6 +101,7 @@ export const SignIn=()=> {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleNavigate}
             >
               Sign In
             </Button>
