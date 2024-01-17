@@ -18,7 +18,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import Autocomplete from '@mui/material/Autocomplete';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -28,28 +27,11 @@ interface Item {
     count: number;
     creationDate: Date;
 }
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const cards = [1, 2, 3];
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export const Dashboard = () => {
     const [items, setItems] = React.useState<Item[]>([]);
     const [newItem, setNewItem] = React.useState<{ title: string; description: string }>({ title: '', description: '' });
-    const [title, setTitle] = React.useState("");
     const topFeatures = [
         { title: 'feature', year: 1994 },
         { title: 'tech', year: 1972 },
@@ -66,26 +48,26 @@ export const Dashboard = () => {
     }
 
     const handleClose = () => {
-            setOpen(false);
+        setOpen(false);
     }
     const handleAddItem = () => {
         const newItemWithCount: Item = {
             ...newItem,
             count: 0,
-            creationDate: new Date(), // Set the creation date to the current date and time
-          };
-          setItems([...items, newItemWithCount]);
-          setOpen(false);
-          setNewItem({ title: '', description: '' });
+            creationDate: new Date(),
+        };
+        setItems([...items, newItemWithCount]);
+        setOpen(false);
+        setNewItem({ title: '', description: '' });
     };
     const handleThumbsUp = (index: number) => {
         setItems((prevItems) => {
-          const updatedItems = [...prevItems];
-          updatedItems[index] = { ...updatedItems[index], count: updatedItems[index].count + 1 };
-          return updatedItems;
+            const updatedItems = [...prevItems];
+            updatedItems[index] = { ...updatedItems[index], count: updatedItems[index].count + 1 };
+            return updatedItems;
         });
-      };
-    
+    };
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
@@ -118,7 +100,6 @@ export const Dashboard = () => {
                     </Container>
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
-                    {/* End hero unit */}
                     <Grid container spacing={4}>
                         {items.map((card, index) => (
                             <Grid item key={index} xs={12} sm={6} md={4}>
@@ -128,7 +109,6 @@ export const Dashboard = () => {
                                     <CardMedia
                                         component="div"
                                         sx={{
-                                            // 16:9
                                             pt: '56.25%',
                                         }}
                                         image="https://source.unsplash.com/random?wallpapers"
@@ -141,11 +121,9 @@ export const Dashboard = () => {
                                             {card.description}
                                         </Typography>
                                     </CardContent>
-                                    <CardActions sx={{display:"flex",justifyContent:"space-between"}}>
-                                    <p>{card.creationDate.toLocaleDateString()}</p>
-                                    <Button size='small' onClick={()=>handleThumbsUp(index)}><ThumbUpAltIcon/>{card.count}</Button>
-                                        {/* <Button size="small">View</Button>
-                                        <Button size="small">Edit</Button> */}
+                                    <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+                                        <p>{card.creationDate.toLocaleDateString()}</p>
+                                        <Button size='small' onClick={() => handleThumbsUp(index)}><ThumbUpAltIcon />{card.count}</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -166,7 +144,7 @@ export const Dashboard = () => {
                     <TextField id="outlined-basic" sx={{ margin: 2 }} label="Title" variant="outlined" value={newItem.title}
                         helperText={newItem.title.length === 0 ? "Title Required" : ""}
                         onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
-                        />
+                    />
                     <TextField
                         id="outlined-multiline-static"
                         label="Description"

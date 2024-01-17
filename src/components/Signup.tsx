@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, } from 'react';
 
 function Copyright(props: any) {
@@ -28,10 +28,9 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export const SignIn=()=> {
+export const SignIn = () => {
   const [empId, setEmpId] = useState('');
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -80,7 +79,7 @@ export const SignIn=()=> {
               name="empid"
               autoComplete="empid"
               autoFocus
-              onChange={(e)=>setEmpId(e.target.value)}
+              onChange={(e) => setEmpId(e.target.value)}
             />
             <TextField
               margin="normal"
