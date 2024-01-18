@@ -171,7 +171,7 @@ export const Dashboard = () => {
                             options={topFeatures}
                             getOptionLabel={(option) => option.title}
                             value={newItem.tags.map(tag => ({ title: tag, year: 0 }))}
-                            onChange={(_, newValue) => setNewItem({ ...newItem, tags: newValue.map(tag=>tag.title) })}
+                            onChange={(_, newValue) => setNewItem({ ...newItem, tags: newValue.map(tag => tag.title) })}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
