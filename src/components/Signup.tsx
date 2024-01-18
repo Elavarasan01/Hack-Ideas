@@ -37,7 +37,7 @@ export const SignIn = () => {
     if (empId.trim() !== '' && empId.length >= 4) {
       navigate(`/dashboard`);
     } else {
-      alert('User ID not correct.');
+      alert('Employee ID not correct.');
     }
   };
 

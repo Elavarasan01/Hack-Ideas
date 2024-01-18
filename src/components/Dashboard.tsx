@@ -24,6 +24,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 interface Item {
     title: string;
     description: string;
+    tags:string;
     count: number;
     creationDate: Date;
 }
@@ -31,7 +32,7 @@ const defaultTheme = createTheme();
 
 export const Dashboard = () => {
     const [items, setItems] = React.useState<Item[]>([]);
-    const [newItem, setNewItem] = React.useState<{ title: string; description: string }>({ title: '', description: '' });
+    const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags:string }>({ title: '', description: '', tags:'' });
     const topFeatures = [
         { title: 'feature', year: 1994 },
         { title: 'tech', year: 1972 },
@@ -51,6 +52,9 @@ export const Dashboard = () => {
         setOpen(false);
     }
     const handleAddItem = () => {
+        if(newItem.title == ''){
+            return;
+        }
         const newItemWithCount: Item = {
             ...newItem,
             count: 0,
@@ -58,7 +62,7 @@ export const Dashboard = () => {
         };
         setItems([...items, newItemWithCount]);
         setOpen(false);
-        setNewItem({ title: '', description: '' });
+        setNewItem({ title: '', description: '', tags:'' });
     };
     const handleThumbsUp = (index: number) => {
         setItems((prevItems) => {
@@ -120,6 +124,9 @@ export const Dashboard = () => {
                                         <Typography>
                                             {card.description}
                                         </Typography>
+                                        <Typography>
+                                            {card.tags}
+                                        </Typography>
                                     </CardContent>
                                     <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
                                         <p>{card.creationDate.toLocaleDateString()}</p>
@@ -166,8 +173,10 @@ export const Dashboard = () => {
                                     {...params}
                                     variant="standard"
                                     label="Add Tags"
+                                    onChange={(e) => setNewItem({ ...newItem, tags: e.target.value })}
                                 />
                             )}
+                          
                         />
                     </Stack>
                 </DialogContent>
