@@ -36,7 +36,7 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     if (!empId.trim() && empId.length <= 4) {
-      setError(true);   
+      setError(true);
     } else {
       navigate(`/dashboard`);
     }
@@ -77,7 +77,7 @@ export const SignIn = () => {
               id="empid"
               value={empId}
               error={error && !empId.trim()}
-              helperText={error && !empId.trim()?'Empid Required':''}
+              helperText={error && !empId.trim() ? 'Empid Required' : ''}
               label="Employee id"
               name="empid"
               autoComplete="empid"

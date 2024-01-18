@@ -24,7 +24,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 interface Item {
     title: string;
     description: string;
-    tags:string;
+    tags: string;
     count: number;
     creationDate: Date;
 }
@@ -32,8 +32,8 @@ const defaultTheme = createTheme();
 
 export const Dashboard = () => {
     const [items, setItems] = React.useState<Item[]>([]);
-    const[error,setError]=React.useState(false);
-    const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags:string }>({ title: '', description: '', tags:'' });
+    const [error, setError] = React.useState(false);
+    const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags: string }>({ title: '', description: '', tags: '' });
     const topFeatures = [
         { title: 'feature', year: 1994 },
         { title: 'tech', year: 1972 },
@@ -53,10 +53,10 @@ export const Dashboard = () => {
         setOpen(false);
     }
     const handleAddItem = () => {
-        if(!newItem.title.trim()){
+        if (!newItem.title.trim()) {
             setError(true);
             return;
-        }else{
+        } else {
             const newItemWithCount: Item = {
                 ...newItem,
                 count: 0,
@@ -64,7 +64,7 @@ export const Dashboard = () => {
             };
             setItems([...items, newItemWithCount]);
             setOpen(false);
-            setNewItem({ title: '', description: '', tags:'' });
+            setNewItem({ title: '', description: '', tags: '' });
         }
     };
     const handleThumbsUp = (index: number) => {
@@ -87,7 +87,6 @@ export const Dashboard = () => {
                 </Toolbar>
             </AppBar>
             <main>
-                {/* Hero unit */}
                 <Box
                     sx={{
                         bgcolor: 'background.paper',
@@ -180,7 +179,7 @@ export const Dashboard = () => {
                                     onChange={(e) => setNewItem({ ...newItem, tags: e.target.value })}
                                 />
                             )}
-                          
+
                         />
                     </Stack>
                 </DialogContent>
