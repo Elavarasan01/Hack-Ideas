@@ -32,6 +32,7 @@ const defaultTheme = createTheme();
 
 export const Dashboard = () => {
     const [items, setItems] = React.useState<Item[]>([]);
+    const[error,setError]=React.useState(false);
     const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags:string }>({ title: '', description: '', tags:'' });
     const topFeatures = [
         { title: 'feature', year: 1994 },
@@ -52,17 +53,19 @@ export const Dashboard = () => {
         setOpen(false);
     }
     const handleAddItem = () => {
-        if(newItem.title == ''){
+        if(!newItem.title.trim()){
+            setError(true);
             return;
+        }else{
+            const newItemWithCount: Item = {
+                ...newItem,
+                count: 0,
+                creationDate: new Date(),
+            };
+            setItems([...items, newItemWithCount]);
+            setOpen(false);
+            setNewItem({ title: '', description: '', tags:'' });
         }
-        const newItemWithCount: Item = {
-            ...newItem,
-            count: 0,
-            creationDate: new Date(),
-        };
-        setItems([...items, newItemWithCount]);
-        setOpen(false);
-        setNewItem({ title: '', description: '', tags:'' });
     };
     const handleThumbsUp = (index: number) => {
         setItems((prevItems) => {
@@ -149,7 +152,8 @@ export const Dashboard = () => {
                 </DialogTitle>
                 <DialogContent sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
                     <TextField id="outlined-basic" sx={{ margin: 2 }} label="Title" variant="outlined" value={newItem.title}
-                        helperText={newItem.title.length === 0 ? "Title Required" : ""}
+                        error={error && !newItem.title.trim()}
+                        helperText={error && !newItem.title.trim() ? "Title Required" : ""}
                         onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
                     />
                     <TextField

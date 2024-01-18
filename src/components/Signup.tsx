@@ -20,7 +20,7 @@ function Copyright(props: any) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        HackIdeas
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,12 +32,13 @@ const defaultTheme = createTheme();
 
 export const SignIn = () => {
   const [empId, setEmpId] = useState('');
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const handleNavigate = () => {
-    if (empId.trim() !== '' && empId.length >= 4) {
-      navigate(`/dashboard`);
+    if (!empId.trim() && empId.length <= 4) {
+      setError(true);   
     } else {
-      alert('Employee ID not correct.');
+      navigate(`/dashboard`);
     }
   };
 
@@ -75,6 +76,8 @@ export const SignIn = () => {
               fullWidth
               id="empid"
               value={empId}
+              error={error && !empId.trim()}
+              helperText={error && !empId.trim()?'Empid Required':''}
               label="Employee id"
               name="empid"
               autoComplete="empid"
