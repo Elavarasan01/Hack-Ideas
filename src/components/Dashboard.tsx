@@ -24,7 +24,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 interface Item {
     title: string;
     description: string;
-    tags: string;
+    tags: string[];
     count: number;
     creationDate: Date;
 }
@@ -33,7 +33,7 @@ const defaultTheme = createTheme();
 export const Dashboard = () => {
     const [items, setItems] = React.useState<Item[]>([]);
     const [error, setError] = React.useState(false);
-    const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags: string }>({ title: '', description: '', tags: '' });
+    const [newItem, setNewItem] = React.useState<{ title: string; description: string; tags: string[] }>({ title: '', description: '', tags: [] });
     const topFeatures = [
         { title: 'feature', year: 1994 },
         { title: 'tech', year: 1972 },
@@ -64,7 +64,7 @@ export const Dashboard = () => {
             };
             setItems([...items, newItemWithCount]);
             setOpen(false);
-            setNewItem({ title: '', description: '', tags: '' });
+            setNewItem({ title: '', description: '', tags: [] });
         }
     };
     const handleThumbsUp = (index: number) => {
@@ -127,7 +127,7 @@ export const Dashboard = () => {
                                             {card.description}
                                         </Typography>
                                         <Typography>
-                                            {card.tags}
+                                            {card.tags.join(', ')}
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -170,13 +170,13 @@ export const Dashboard = () => {
                             id="tags-standard"
                             options={topFeatures}
                             getOptionLabel={(option) => option.title}
-                            defaultValue={[topFeatures[0]]}
+                            value={newItem.tags.map(tag => ({ title: tag, year: 0 }))}
+                            onChange={(_, newValue) => setNewItem({ ...newItem, tags: newValue.map(tag=>tag.title) })}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
                                     variant="standard"
                                     label="Add Tags"
-                                    onChange={(e) => setNewItem({ ...newItem, tags: e.target.value })}
                                 />
                             )}
 
