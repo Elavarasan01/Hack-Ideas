@@ -65,6 +65,7 @@ export const Dashboard = () => {
             setItems([...items, newItemWithCount]);
             setOpen(false);
             setNewItem({ title: '', description: '', tags: [] });
+            setError(false);
         }
     };
     const handleThumbsUp = (index: number) => {
